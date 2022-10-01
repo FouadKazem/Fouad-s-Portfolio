@@ -61,28 +61,42 @@ body {
     padding: 0;
     border: none;
     background: none;
-    position: relative;
 }
 
-[class="navi-bar-content"]>button:after {
-    content: '';
-    width: 100%;
-    position: absolute;
-    transform: scaleX(0);
-    height: 0.25rem;
-    bottom: 0;
-    left: 0;
-    background-color: black;
-    transform-origin: bottom right;
-    transition: transform 0.5s ease-in-out;
-}
-
-[class="navi-bar-content"]>button:hover:after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
+[class="navi-bar-content"]>button:hover {
+    text-decoration: underline;
 }
 
 /*          Desktop Header End          */
+
+.themes-btn {
+    width: 4rem;
+    height: 2rem;
+    padding: 0;
+    border: 0.25rem solid black;
+    border-radius: 4rem;
+    display: grid;
+    grid-template: auto / auto;
+    align-content: center;
+}
+
+.themes-btn-slide {
+    background-color: black;
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 0.05rem;
+    margin-right: 0.05rem;
+    border: none;
+    border-radius: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.themes-btn-slide:focus {
+    transition: 0.5s ease-in-out;
+}
 
 /*          Main Start          */
 
