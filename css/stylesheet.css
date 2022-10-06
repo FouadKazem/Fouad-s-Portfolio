@@ -17,49 +17,39 @@ body {
     display: grid;
     grid-template: auto / auto auto;
     align-content: center;
+    justify-content: center;
     justify-content: space-between;
-}
-
-[class="desktop-header"] * {
-    padding-top: 0;
-    padding-bottom: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    box-sizing: border-box;
-    font-size: 1.25rem;
-    font-weight: bold;
-    text-decoration: none;
 }
 
 .navi-bar {
     /*background-color: white;*/ /*USE FOR DEBUGGING*/
     display: grid;
-    grid-template: auto / auto auto;
+    grid-template: auto / auto auto auto;
     align-content: center;
-    column-gap: 2rem;
+    justify-content: center;
+    column-gap: 1rem;
 }
 
 .website-title {
     user-select: none;
     cursor: default;
-    margin-top: auto;
-    margin-bottom: auto;
+    margin: auto;
+    padding: 0;
     font-size: 1.25em;
-    font-weight: bolder;
     color: white;
 }
 
-[class="navi-bar"] p {
-    user-select: none;
-    cursor: default;
+div[class="website-title"] {
+    width: 0.2rem;
+    height: 1.5rem;
+    background-color: white;
 }
 
 .navi-bar-content {
     /*background-color: green;*/ /*USE FOR DEBUGGING*/
-    background-color: white;
+    margin: 0;
+    padding: 0;
     border-radius: 2rem;
-    padding-left: 2rem;
-    padding-right: 2rem;
     height: 2rem;
     display: grid;
     grid-template: auto / auto auto auto;
@@ -68,25 +58,30 @@ body {
 }
 
 [class="navi-bar-content"]>button {
+    margin: 0;
     padding: 0;
     border: none;
     background: none;
 }
 
 [class="navi-bar-content"]>button>a {
-    color: rgb(50, 50, 50);
+    margin: auto;
+    padding: 0;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.25em;
 }
 
 [class="navi-bar-content"]>button>a:hover {
-    opacity: 50%;
+    opacity: 75%;
 }
 
 /*          Desktop Header End          */
 
 .themes-btn {
     background-color: white;
-    width: 4rem;
-    height: 2rem;
+    width: 3.5rem;
     padding: 0;
     border: 0.25rem solid rgb(50, 50, 50);
     border-radius: 4rem;
