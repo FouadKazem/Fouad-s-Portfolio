@@ -5,10 +5,9 @@ let cssRules = new Map()
 for (let i = 0; i < styleSheet.cssRules.length; i++) {
     cssRules.set(styleSheet.cssRules[i].selectorText, styleSheet.cssRules[i])
 }
-console.log(navigator.userAgent)
 let userAgent = navigator.userAgent.toLowerCase()
 let mobileAgent = false
-if (userAgent.indexOf('android') != -1 || userAgent.indexOf('iphone') != -1 || userAgent.indexOf('ipad')) {
+if (userAgent.indexOf('android') != -1 || userAgent.indexOf('iphone') != -1 || userAgent.indexOf('ipad') != -1) {
     mobileAgent = true
 }
 if (mobileAgent) {
