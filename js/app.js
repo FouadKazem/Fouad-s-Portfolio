@@ -1,9 +1,9 @@
 const styleSheet = document.styleSheets[0]
-const themesBtnHtml = document.querySelector(".themes-btn-slide")
+const themesBtnHtml = document.getElementsByClassName("themes-btn-slide")
 let themesBtnState = localStorage.getItem('themesBtnState')
 let cssRules = new Map()
 for (let i = 0; i < styleSheet.cssRules.length; i++) {
-    cssRules.set(styleSheet.cssRules[i].selectorText, styleSheet.cssRules[i])
+    cssRules.set(styleSheet.cssRules[i].selectorText.split(' ').join(''), styleSheet.cssRules[i])
 }
 let userAgent = navigator.userAgent.toLowerCase()
 let mobileAgent = false
@@ -24,12 +24,26 @@ function lightTheme(state) {
     cssRules.get('.themes-btn-slide').style.setProperty('background-image', 'url("../img/Sun-logo.png")')
     cssRules.get('.themes-btn').style.setProperty('border', '0.25rem solid rgb(50, 50, 50)')
     cssRules.get('.themes-btn').style.setProperty('background-color', 'white')
-    cssRules.get('.desktop-header').style.setProperty('background-color', 'rgb(0, 128, 255)')
-    if (state === 'change') {
-        cssRules.get('.desktop-header').style.setProperty('transition', 'background-color 0.5s ease-in-out')
-        setTimeout(function () {
-            cssRules.get('.desktop-header').style.setProperty('transition', 'none')
-        }, 500)
+    if (mobileAgent) {
+        cssRules.get('.mobile-header').style.setProperty('background-color', 'rgb(0, 128, 255)')
+        cssRules.get('.navi-menu-btn').style.setProperty('background-color', 'rgb(50, 50, 50)')
+        cssRules.get('.navi-menu-btn').style.setProperty('border', '0.25rem solid rgb(50, 50, 50)')
+        cssRules.get(`[class="navi-menu-btn"]>div`).style.setProperty('background-color', 'white')
+        if (state === 'change') {
+            cssRules.get('.mobile-header').style.setProperty('transition', 'background-color 0.5s ease-in-out')
+            setTimeout(function () {
+                cssRules.get('.mobile-header').style.setProperty('transition', 'none')
+            }, 500)
+        }
+    }
+    else {
+        cssRules.get('.desktop-header').style.setProperty('background-color', 'rgb(0, 128, 255)')
+        if (state === 'change') {
+            cssRules.get('.desktop-header').style.setProperty('transition', 'background-color 0.5s ease-in-out')
+            setTimeout(function () {
+                cssRules.get('.desktop-header').style.setProperty('transition', 'none')
+            }, 500)
+        }
     }
 }
 
@@ -40,12 +54,26 @@ function darkTheme(state) {
     cssRules.get('.themes-btn-slide').style.setProperty('background-image', 'url("../img/Moon-logo.png")')
     cssRules.get('.themes-btn').style.setProperty('border', '0.25rem solid white')
     cssRules.get('.themes-btn').style.setProperty('background-color', 'grey')
-    cssRules.get('.desktop-header').style.setProperty('background-color', 'rgb(0, 0, 50)')
-    if (state === 'change') {
-        cssRules.get('.desktop-header').style.setProperty('transition', 'background-color 0.5s ease-in-out')
-        setTimeout(function () {
-            cssRules.get('.desktop-header').style.setProperty('transition', 'none')
-        }, 500)
+    if (mobileAgent) {
+        cssRules.get('.mobile-header').style.setProperty('background-color', 'rgb(0, 0, 50)')
+        cssRules.get('.navi-menu-btn').style.setProperty('background-color', 'white')
+        cssRules.get('.navi-menu-btn').style.setProperty('border', '0.25rem solid white')
+        cssRules.get(`[class="navi-menu-btn"]>div`).style.setProperty('background-color', 'rgb(50, 50, 50)')
+        if (state === 'change') {
+            cssRules.get('.mobile-header').style.setProperty('transition', 'background-color 0.5s ease-in-out')
+            setTimeout(function () {
+                cssRules.get('.mobile-header').style.setProperty('transition', 'none')
+            }, 500)
+        }
+    }
+    else {
+        cssRules.get('.desktop-header').style.setProperty('background-color', 'rgb(0, 0, 50)')
+        if (state === 'change') {
+            cssRules.get('.desktop-header').style.setProperty('transition', 'background-color 0.5s ease-in-out')
+            setTimeout(function () {
+                cssRules.get('.desktop-header').style.setProperty('transition', 'none')
+            }, 500)
+        }
     }
 }
 
@@ -61,11 +89,31 @@ else {
     }
 }
 
-themesBtnHtml.addEventListener('click', function () {
-    if (themesBtnState === 'left') {
-        darkTheme('change')
+for (let i = 0; i < themesBtnHtml.length; i++) {
+    themesBtnHtml[i].addEventListener('click', function () {
+        if (themesBtnState === 'left') {
+            darkTheme('change')
+        }
+        else {
+            lightTheme('change')
+        }
+    })
+}
+
+let naviMenuBtn = document.querySelector('.navi-menu-btn')
+let naviMenu = 'hidden'
+
+naviMenuBtn.addEventListener('click', function() {
+    if (naviMenu === 'hidden') {
+        naviMenu = 'visibile'
+        cssRules.get('.navi-menu-content').style.setProperty('transform', 'none')
     }
     else {
-        lightTheme('change')
+        naviMenu = 'hidden'
+        cssRules.get('.navi-menu-content').style.setProperty('transform', 'translateX(-100%)')
     }
+    cssRules.get('.navi-menu-content').style.setProperty('transition', 'transform 0.25s ease-in-out')
+    setTimeout(function() {
+        cssRules.get('.navi-menu-content').style.setProperty('transition', 'none')
+    }, 250)
 })
