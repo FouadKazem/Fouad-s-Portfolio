@@ -87,6 +87,7 @@ div[class="website-title"] {
     display: grid;
     grid-template: auto / auto;
     align-content: center;
+    cursor: pointer;
 }
 
 .themes-btn-slide {
@@ -100,10 +101,6 @@ div[class="website-title"] {
     border-radius: 100%;
     box-sizing: border-box;
     cursor: pointer;
-}
-
-.themes-btn-slide:focus {
-    transition: 0.25s ease-in-out;
 }
 
 /*          Mobile Header Start         */

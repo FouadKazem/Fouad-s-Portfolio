@@ -23,6 +23,12 @@ function lightTheme(state) {
     cssRules.get('.themes-btn-slide').style.setProperty('background-image', 'url("../img/Sun-logo.png")')
     cssRules.get('.themes-btn').style.setProperty('border', '0.25rem solid rgb(50, 50, 50)')
     cssRules.get('.themes-btn').style.setProperty('background-color', 'white')
+    if (state === 'change') {
+        cssRules.get('.themes-btn-slide').style.setProperty('transition', 'transform 0.25s ease-in-out')
+        setTimeout(function () {
+            cssRules.get('.themes-btn-slide').style.setProperty('transition', 'none')
+        }, 250)
+    }
     if (mobileAgent) {
         cssRules.get('.mobile-header').style.setProperty('background-color', 'rgb(0, 128, 255)')
         cssRules.get('.navi-menu-btn').style.setProperty('background-color', 'rgb(50, 50, 50)')
@@ -60,6 +66,12 @@ function darkTheme(state) {
     cssRules.get('.themes-btn-slide').style.setProperty('background-image', 'url("../img/Moon-logo.png")')
     cssRules.get('.themes-btn').style.setProperty('border', '0.25rem solid white')
     cssRules.get('.themes-btn').style.setProperty('background-color', 'grey')
+    if (state === 'change') {
+        cssRules.get('.themes-btn-slide').style.setProperty('transition', 'transform 0.25s ease-in-out')
+        setTimeout(function () {
+            cssRules.get('.themes-btn-slide').style.setProperty('transition', 'none')
+        }, 250)
+    }
     if (mobileAgent) {
         cssRules.get('.mobile-header').style.setProperty('background-color', 'rgb(0, 0, 50)')
         cssRules.get('.navi-menu-btn').style.setProperty('background-color', 'white')
