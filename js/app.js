@@ -1,11 +1,10 @@
 const styleSheet = document.styleSheets[0]
-const themesBtnHtml = document.getElementsByClassName("themes-btn-slide")
 let themesBtnState = localStorage.getItem('themesBtnState')
 let cssRules = new Map()
 for (let i = 0; i < styleSheet.cssRules.length; i++) {
     cssRules.set(styleSheet.cssRules[i].selectorText.split(' ').join(''), styleSheet.cssRules[i])
 }
-let userAgent = navigator.userAgent.toLowerCase()
+const userAgent = navigator.userAgent.toLowerCase()
 let mobileAgent = false
 if (userAgent.indexOf('android') != -1 || userAgent.indexOf('iphone') != -1 || userAgent.indexOf('ipad') != -1) {
     mobileAgent = true
@@ -29,6 +28,13 @@ function lightTheme(state) {
         cssRules.get('.navi-menu-btn').style.setProperty('background-color', 'rgb(50, 50, 50)')
         cssRules.get('.navi-menu-btn').style.setProperty('border', '0.25rem solid rgb(50, 50, 50)')
         cssRules.get(`[class="navi-menu-btn"]>div`).style.setProperty('background-color', 'white')
+        cssRules.get('.navi-menu-content').style.setProperty('background-color', 'white')
+        cssRules.get('.navi-menu-content').style.setProperty('border-left', '0.25rem solid white')
+        cssRules.get('.navi-menu-content').style.setProperty('border-right', '0.25rem solid white')
+        cssRules.get(`[class="navi-menu-content"]>button`).style.setProperty('background-color', 'white')
+        cssRules.get(`[class="navi-menu-content"]>button`).style.setProperty('border-bottom', '0.15rem solid rgb(50, 50, 50)')
+        cssRules.get(`[class="navi-menu-content"]>button:first-child`).style.setProperty('border-top', '0.15rem solid white')
+        cssRules.get(`[class="navi-menu-content"]>button>a`).style.setProperty('color', 'rgb(50, 50, 50)')
         if (state === 'change') {
             cssRules.get('.mobile-header').style.setProperty('transition', 'background-color 0.5s ease-in-out')
             setTimeout(function () {
@@ -59,6 +65,13 @@ function darkTheme(state) {
         cssRules.get('.navi-menu-btn').style.setProperty('background-color', 'white')
         cssRules.get('.navi-menu-btn').style.setProperty('border', '0.25rem solid white')
         cssRules.get(`[class="navi-menu-btn"]>div`).style.setProperty('background-color', 'rgb(50, 50, 50)')
+        cssRules.get('.navi-menu-content').style.setProperty('background-color', 'rgb(50, 50, 50)')
+        cssRules.get('.navi-menu-content').style.setProperty('border-left', '0.25rem solid rgb(50, 50, 50)')
+        cssRules.get('.navi-menu-content').style.setProperty('border-right', '0.25rem solid rgb(50, 50, 50)')
+        cssRules.get(`[class="navi-menu-content"]>button`).style.setProperty('background-color', 'rgb(50, 50, 50)')
+        cssRules.get(`[class="navi-menu-content"]>button`).style.setProperty('border-bottom', '0.15rem solid white')
+        cssRules.get(`[class="navi-menu-content"]>button:first-child`).style.setProperty('border-top', '0.15rem solid rgb(50, 50, 50)')
+        cssRules.get(`[class="navi-menu-content"]>button>a`).style.setProperty('color', 'white')
         if (state === 'change') {
             cssRules.get('.mobile-header').style.setProperty('transition', 'background-color 0.5s ease-in-out')
             setTimeout(function () {
@@ -88,32 +101,44 @@ else {
         lightTheme()
     }
 }
+let naviMenu = 'hidden'
 
-for (let i = 0; i < themesBtnHtml.length; i++) {
-    themesBtnHtml[i].addEventListener('click', function () {
+document.querySelector('body').addEventListener('click', function (e) {
+    if (e.target.getAttribute('class') === 'themes-btn' || e.target.parentElement.getAttribute('class') === 'themes-btn') {
         if (themesBtnState === 'left') {
             darkTheme('change')
         }
         else {
             lightTheme('change')
         }
-    })
-}
-
-let naviMenuBtn = document.querySelector('.navi-menu-btn')
-let naviMenu = 'hidden'
-
-naviMenuBtn.addEventListener('click', function() {
-    if (naviMenu === 'hidden') {
-        naviMenu = 'visibile'
-        cssRules.get('.navi-menu-content').style.setProperty('transform', 'none')
+    }
+    else if (e.target.getAttribute('class') === 'navi-menu-btn' || e.target.parentElement.getAttribute('class') === 'navi-menu-btn') {
+        if (naviMenu === 'hidden') {
+            naviMenu = 'visible'
+            cssRules.get('.navi-menu-content').style.setProperty('transform', 'none')
+        }
+        else {
+            naviMenu = 'hidden'
+            cssRules.get('.navi-menu-content').style.setProperty('transform', 'translateX(-100%)')
+        }
+        cssRules.get('.navi-menu-content').style.setProperty('transition', 'transform 0.25s ease-in-out')
+        setTimeout(function () {
+            cssRules.get('.navi-menu-content').style.setProperty('transition', 'none')
+        }, 250)
     }
     else {
-        naviMenu = 'hidden'
-        cssRules.get('.navi-menu-content').style.setProperty('transform', 'translateX(-100%)')
+        if (mobileAgent && naviMenu === 'visible') {
+            const el = e.target.getAttribute('class')
+            const elp = e.target.parentElement.getAttribute('class')
+            const elg = e.target.parentElement.parentElement.getAttribute('class')
+            if (el != 'navi-menu-content' && elp != 'navi-menu-content' && elg != 'navi-menu-content') {
+                naviMenu = 'hidden'
+                cssRules.get('.navi-menu-content').style.setProperty('transform', 'translateX(-100%)')
+                cssRules.get('.navi-menu-content').style.setProperty('transition', 'transform 0.25s ease-in-out')
+                setTimeout(function () {
+                    cssRules.get('.navi-menu-content').style.setProperty('transition', 'none')
+                }, 250)
+            }
+        }
     }
-    cssRules.get('.navi-menu-content').style.setProperty('transition', 'transform 0.25s ease-in-out')
-    setTimeout(function() {
-        cssRules.get('.navi-menu-content').style.setProperty('transition', 'none')
-    }, 250)
 })

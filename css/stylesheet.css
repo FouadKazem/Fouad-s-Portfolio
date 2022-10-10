@@ -150,8 +150,8 @@ div[class="website-title"] {
     left: 0;
     right: 50%;
     margin-top: 0.5rem;
-    border-left: 0.25rem solid rgb(50, 50, 50);
-    border-right: 0.25rem solid rgb(50, 50, 50);
+    border-left: 0.25rem solid white;
+    border-right: 0.25rem solid white;
     display: grid;
     grid-template: auto auto auto / auto;
     align-content: flex-start;
@@ -166,12 +166,12 @@ div[class="website-title"] {
     margin: 0;
     padding: 0.5rem 0 0.5rem 0.25rem;
     border: none;
-    border-top: 0.25rem solid rgb(50, 50, 50);
+    border-bottom: 0.15rem solid rgb(50, 50, 50);
     text-align: left;
 }
 
-[class="navi-menu-content"]>button:last-child {
-    border-bottom: 0.25rem solid rgb(50, 50, 50);
+[class="navi-menu-content"]>button:first-child {
+    border-top: 0.15rem solid white;
 }
 
 [class="navi-menu-content"]>button>a {
