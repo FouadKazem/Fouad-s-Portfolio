@@ -101,7 +101,23 @@ else {
         lightTheme()
     }
 }
-let naviMenu = 'hidden'
+
+let naviMenuState = 'hidden'
+
+function showHideNaviMenu() {
+    if (naviMenuState === 'hidden') {
+        naviMenuState = 'visible'
+        cssRules.get('.navi-menu-content').style.setProperty('transform', 'none')
+    }
+    else {
+        naviMenuState = 'hidden'
+        cssRules.get('.navi-menu-content').style.setProperty('transform', 'translateX(-100%)')
+    }
+    cssRules.get('.navi-menu-content').style.setProperty('transition', 'transform 0.25s ease-in-out')
+    setTimeout(function () {
+        cssRules.get('.navi-menu-content').style.setProperty('transition', 'none')
+    }, 250)
+}
 
 document.querySelector('body').addEventListener('click', function (e) {
     if (e.target.getAttribute('class') === 'themes-btn' || e.target.parentElement.getAttribute('class') === 'themes-btn') {
@@ -113,18 +129,7 @@ document.querySelector('body').addEventListener('click', function (e) {
         }
     }
     else if (e.target.getAttribute('class') === 'navi-menu-btn' || e.target.parentElement.getAttribute('class') === 'navi-menu-btn') {
-        if (naviMenu === 'hidden') {
-            naviMenu = 'visible'
-            cssRules.get('.navi-menu-content').style.setProperty('transform', 'none')
-        }
-        else {
-            naviMenu = 'hidden'
-            cssRules.get('.navi-menu-content').style.setProperty('transform', 'translateX(-100%)')
-        }
-        cssRules.get('.navi-menu-content').style.setProperty('transition', 'transform 0.25s ease-in-out')
-        setTimeout(function () {
-            cssRules.get('.navi-menu-content').style.setProperty('transition', 'none')
-        }, 250)
+        showHideNaviMenu()
     }
     else {
         if (mobileAgent && naviMenu === 'visible') {
@@ -132,12 +137,7 @@ document.querySelector('body').addEventListener('click', function (e) {
             const elp = e.target.parentElement.getAttribute('class')
             const elg = e.target.parentElement.parentElement.getAttribute('class')
             if (el != 'navi-menu-content' && elp != 'navi-menu-content' && elg != 'navi-menu-content') {
-                naviMenu = 'hidden'
-                cssRules.get('.navi-menu-content').style.setProperty('transform', 'translateX(-100%)')
-                cssRules.get('.navi-menu-content').style.setProperty('transition', 'transform 0.25s ease-in-out')
-                setTimeout(function () {
-                    cssRules.get('.navi-menu-content').style.setProperty('transition', 'none')
-                }, 250)
+                showHideNaviMenu()
             }
         }
     }
