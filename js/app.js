@@ -1,103 +1,133 @@
 const styleSheet = document.styleSheets[0]
-let themesBtnState = localStorage.getItem('themesBtnState')
 let cssRules = new Map()
 for (let i = 0; i < styleSheet.cssRules.length; i++) {
     cssRules.set(styleSheet.cssRules[i].selectorText.split(' ').join(''), styleSheet.cssRules[i])
 }
+let themesBtnState = localStorage.getItem('themesBtnState')
 const userAgent = navigator.userAgent.toLowerCase()
 let mobileAgent = false
 if (userAgent.indexOf('android') != -1 || userAgent.indexOf('iphone') != -1 || userAgent.indexOf('ipad') != -1) {
     mobileAgent = true
 }
 if (mobileAgent) {
-    cssRules.get('.desktop-header').style.setProperty('display', 'none')
+    setProperty('.desktop-header', 'display', 'none')
 }
 else {
-    cssRules.get('.mobile-header').style.setProperty('display', 'none')
+    setProperty('.mobile-header', 'display', 'none')
 }
 
-function lightTheme(state) {
+async function setProperty(cssRule, property, value) {
+    return new Promise(function (resolve, reject) {
+        if (cssRules.get(cssRule)) {
+            resolve([cssRule, property, value])
+        }
+        else {
+            reject('Error No such rule existed!')
+        }
+    }).then(function (resolve) {
+        cssRules.get(resolve[0]).style.setProperty(resolve[1], resolve[2])
+    }).catch(function (err) {
+        console.log(err)
+    })
+}
+
+function setPropertySync(cssRule, property, value) {
+    if (cssRules.get(cssRule)) {
+        cssRules.get(cssRule).style.setProperty(property, value)
+    }
+    else {
+        console.log('Error No such rule existed!')
+    }
+}
+
+async function lightTheme(state) {
     themesBtnState = 'left'
     localStorage.setItem('themesBtnState', 'left')
-    cssRules.get('.themes-btn-slide').style.setProperty('transform', 'none')
-    cssRules.get('.themes-btn-slide').style.setProperty('background-image', 'url("../img/Sun-logo.png")')
-    cssRules.get('.themes-btn').style.setProperty('border', '0.25rem solid rgb(50, 50, 50)')
-    cssRules.get('.themes-btn').style.setProperty('background-color', 'white')
+    setProperty('.themes-btn-slide', 'transform', 'none')
+    setProperty('.themes-btn-slide', 'background-image', 'url("../img/Sun-logo.png")')
+    setProperty('.themes-btn', 'border', '0.25rem solid rgb(50, 50, 50)')
+    setProperty('.themes-btn', 'background-color', 'white')
     if (state === 'change') {
-        cssRules.get('.themes-btn-slide').style.setProperty('transition', 'transform 0.25s ease-in-out')
-        setTimeout(function () {
-            cssRules.get('.themes-btn-slide').style.setProperty('transition', 'none')
-        }, 250)
+        setProperty('.themes-btn-slide', 'transition', 'transform 0.25s ease-in-out').then(function () {
+            setTimeout(function () {
+                setProperty('.themes-btn-slide', 'transition', 'none')
+            }, 250)
+        })
     }
     if (mobileAgent) {
-        cssRules.get('.mobile-header').style.setProperty('background-color', 'rgb(0, 128, 255)')
-        cssRules.get('.navi-menu-btn').style.setProperty('background-color', 'rgb(50, 50, 50)')
-        cssRules.get('.navi-menu-btn').style.setProperty('border', '0.25rem solid rgb(50, 50, 50)')
-        cssRules.get(`[class="navi-menu-btn"]>div`).style.setProperty('background-color', 'white')
-        cssRules.get('.navi-menu-content').style.setProperty('background-color', 'white')
-        cssRules.get('.navi-menu-content').style.setProperty('border-left', '0.25rem solid white')
-        cssRules.get('.navi-menu-content').style.setProperty('border-right', '0.25rem solid white')
-        cssRules.get(`[class="navi-menu-content"]>button`).style.setProperty('background-color', 'white')
-        cssRules.get(`[class="navi-menu-content"]>button`).style.setProperty('border-bottom', '0.15rem solid rgb(50, 50, 50)')
-        cssRules.get(`[class="navi-menu-content"]>button:first-child`).style.setProperty('border-top', '0.15rem solid white')
-        cssRules.get(`[class="navi-menu-content"]>button>a`).style.setProperty('color', 'rgb(50, 50, 50)')
+        setProperty('.mobile-header', 'background-color', 'rgb(0, 128, 255)')
+        setProperty('.navi-menu-btn', 'background-color', 'rgb(50, 50, 50)')
+        setProperty('.navi-menu-btn', 'border', '0.25rem solid rgb(50, 50, 50)')
+        setProperty(`[class="navi-menu-btn"]>div`, 'background-color', 'white')
+        setProperty('.navi-menu-content', 'background-color', 'white')
+        setProperty('.navi-menu-content', 'border-left', '0.25rem solid white')
+        setProperty('.navi-menu-content', 'border-right', '0.25rem solid white')
+        setProperty(`[class="navi-menu-content"]>button`, 'background-color', 'white')
+        setProperty(`[class="navi-menu-content"]>button`, 'border-bottom', '0.15rem solid rgb(50, 50, 50)')
+        setProperty(`[class="navi-menu-content"]>button:first-child`, 'border-top', '0.15rem solid white')
+        setProperty(`[class="navi-menu-content"]>button>a`, 'color', 'rgb(50, 50, 50)')
         if (state === 'change') {
-            cssRules.get('.mobile-header').style.setProperty('transition', 'background-color 0.5s ease-in-out')
-            setTimeout(function () {
-                cssRules.get('.mobile-header').style.setProperty('transition', 'none')
-            }, 500)
+            setProperty('.mobile-header', 'transition', 'background-color 0.5s ease-in-out').then(function () {
+                setTimeout(function () {
+                    setProperty('.mobile-header', 'transition', 'none')
+                }, 500)
+            })
         }
     }
     else {
-        cssRules.get('.desktop-header').style.setProperty('background-color', 'rgb(0, 128, 255)')
+        setProperty('.desktop-header', 'background-color', 'rgb(0, 128, 255)')
         if (state === 'change') {
-            cssRules.get('.desktop-header').style.setProperty('transition', 'background-color 0.5s ease-in-out')
-            setTimeout(function () {
-                cssRules.get('.desktop-header').style.setProperty('transition', 'none')
-            }, 500)
+            setProperty('.desktop-header', 'transition', 'background-color 0.5s ease-in-out').then(function () {
+                setTimeout(function () {
+                    setProperty('.desktop-header', 'transition', 'none')
+                }, 500)
+            })
         }
     }
 }
 
-function darkTheme(state) {
+async function darkTheme(state) {
     themesBtnState = 'right'
     localStorage.setItem('themesBtnState', 'right')
-    cssRules.get('.themes-btn-slide').style.setProperty('transform', 'translateX(2.05rem)')
-    cssRules.get('.themes-btn-slide').style.setProperty('background-image', 'url("../img/Moon-logo.png")')
-    cssRules.get('.themes-btn').style.setProperty('border', '0.25rem solid white')
-    cssRules.get('.themes-btn').style.setProperty('background-color', 'grey')
+    setProperty('.themes-btn-slide', 'transform', 'translateX(2.05rem)')
+    setProperty('.themes-btn-slide', 'background-image', 'url("../img/Moon-logo.png")')
+    setProperty('.themes-btn', 'border', '0.25rem solid white')
+    setProperty('.themes-btn', 'background-color', 'grey')
     if (state === 'change') {
-        cssRules.get('.themes-btn-slide').style.setProperty('transition', 'transform 0.25s ease-in-out')
-        setTimeout(function () {
-            cssRules.get('.themes-btn-slide').style.setProperty('transition', 'none')
-        }, 250)
+        setProperty('.themes-btn-slide', 'transition', 'transform 0.25s ease-in-out').then(function () {
+            setTimeout(function () {
+                setProperty('.themes-btn-slide', 'transition', 'none')
+            }, 250)
+        })
     }
     if (mobileAgent) {
-        cssRules.get('.mobile-header').style.setProperty('background-color', 'rgb(0, 0, 50)')
-        cssRules.get('.navi-menu-btn').style.setProperty('background-color', 'white')
-        cssRules.get('.navi-menu-btn').style.setProperty('border', '0.25rem solid white')
-        cssRules.get(`[class="navi-menu-btn"]>div`).style.setProperty('background-color', 'rgb(50, 50, 50)')
-        cssRules.get('.navi-menu-content').style.setProperty('background-color', 'rgb(50, 50, 50)')
-        cssRules.get('.navi-menu-content').style.setProperty('border-left', '0.25rem solid rgb(50, 50, 50)')
-        cssRules.get('.navi-menu-content').style.setProperty('border-right', '0.25rem solid rgb(50, 50, 50)')
-        cssRules.get(`[class="navi-menu-content"]>button`).style.setProperty('background-color', 'rgb(50, 50, 50)')
-        cssRules.get(`[class="navi-menu-content"]>button`).style.setProperty('border-bottom', '0.15rem solid white')
-        cssRules.get(`[class="navi-menu-content"]>button:first-child`).style.setProperty('border-top', '0.15rem solid rgb(50, 50, 50)')
-        cssRules.get(`[class="navi-menu-content"]>button>a`).style.setProperty('color', 'white')
+        setProperty('.mobile-header', 'background-color', 'rgb(0, 0, 50)')
+        setProperty('.navi-menu-btn', 'background-color', 'white')
+        setProperty('.navi-menu-btn', 'border', '0.25rem solid white')
+        setProperty(`[class="navi-menu-btn"]>div`, 'background-color', 'rgb(50, 50, 50)')
+        setProperty('.navi-menu-content', 'background-color', 'rgb(50, 50, 50)')
+        setProperty('.navi-menu-content', 'border-left', '0.25rem solid rgb(50, 50, 50)')
+        setProperty('.navi-menu-content', 'border-right', '0.25rem solid rgb(50, 50, 50)')
+        setProperty(`[class="navi-menu-content"]>button`, 'background-color', 'rgb(50, 50, 50)')
+        setProperty(`[class="navi-menu-content"]>button`, 'border-bottom', '0.15rem solid white')
+        setProperty(`[class="navi-menu-content"]>button:first-child`, 'border-top', '0.15rem solid rgb(50, 50, 50)')
+        setProperty(`[class="navi-menu-content"]>button>a`, 'color', 'white')
         if (state === 'change') {
-            cssRules.get('.mobile-header').style.setProperty('transition', 'background-color 0.5s ease-in-out')
-            setTimeout(function () {
-                cssRules.get('.mobile-header').style.setProperty('transition', 'none')
-            }, 500)
+            setProperty('.mobile-header', 'transition', 'background-color 0.5s ease-in-out').then(function () {
+                setTimeout(function () {
+                    setProperty('.mobile-header', 'transition', 'none')
+                }, 500)
+            })
         }
     }
     else {
-        cssRules.get('.desktop-header').style.setProperty('background-color', 'rgb(0, 0, 50)')
+        setProperty('.desktop-header', 'background-color', 'rgb(0, 0, 50)')
         if (state === 'change') {
-            cssRules.get('.desktop-header').style.setProperty('transition', 'background-color 0.5s ease-in-out')
-            setTimeout(function () {
-                cssRules.get('.desktop-header').style.setProperty('transition', 'none')
-            }, 500)
+            setProperty('.desktop-header', 'transition', 'background-color 0.5s ease-in-out').then(function () {
+                setTimeout(function () {
+                    setProperty('.desktop-header', 'transition', 'none')
+                }, 500)
+            })
         }
     }
 }
@@ -116,19 +146,20 @@ else {
 
 let naviMenuState = 'hidden'
 
-function showHideNaviMenu() {
+async function showHideNaviMenu() {
     if (naviMenuState === 'hidden') {
         naviMenuState = 'visible'
-        cssRules.get('.navi-menu-content').style.setProperty('transform', 'none')
+        setProperty('.navi-menu-content', 'transform', 'none')
     }
     else {
         naviMenuState = 'hidden'
-        cssRules.get('.navi-menu-content').style.setProperty('transform', 'translateX(-100%)')
+        setProperty('.navi-menu-content', 'transform', 'translateX(-100%)')
     }
-    cssRules.get('.navi-menu-content').style.setProperty('transition', 'transform 0.25s ease-in-out')
-    setTimeout(function () {
-        cssRules.get('.navi-menu-content').style.setProperty('transition', 'none')
-    }, 250)
+    setProperty('.navi-menu-content', 'transition', 'transform 0.25s ease-in-out').then(function () {
+        setTimeout(function () {
+            setProperty('.navi-menu-content', 'transition', 'none')
+        }, 250)
+    })
 }
 
 document.querySelector('body').addEventListener('click', function (e) {
@@ -144,7 +175,7 @@ document.querySelector('body').addEventListener('click', function (e) {
         showHideNaviMenu()
     }
     else {
-        if (mobileAgent && naviMenu === 'visible') {
+        if (mobileAgent && naviMenuState === 'visible') {
             const el = e.target.getAttribute('class')
             const elp = e.target.parentElement.getAttribute('class')
             const elg = e.target.parentElement.parentElement.getAttribute('class')
