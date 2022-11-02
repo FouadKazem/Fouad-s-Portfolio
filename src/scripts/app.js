@@ -44,7 +44,7 @@ async function lightTheme(state) {
     themesBtnState = 'left'
     localStorage.setItem('themesBtnState', 'left')
     setProperty('.themes-btn-slide', 'transform', 'none')
-    setProperty('.themes-btn-slide', 'background-image', 'url("../img/Sun-logo.png")')
+    setProperty('.themes-btn-slide', 'background-image', 'url("../../public/assets/icons/Sun-logo.png")')
     setProperty('.themes-btn', 'border', '0.25rem solid rgb(50, 50, 50)')
     setProperty('.themes-btn', 'background-color', 'white')
     if (state === 'change') {
@@ -90,7 +90,7 @@ async function darkTheme(state) {
     themesBtnState = 'right'
     localStorage.setItem('themesBtnState', 'right')
     setProperty('.themes-btn-slide', 'transform', 'translateX(2.05rem)')
-    setProperty('.themes-btn-slide', 'background-image', 'url("../img/Moon-logo.png")')
+    setProperty('.themes-btn-slide', 'background-image', 'url("../../public/assets/icons/Moon-logo.png")')
     setProperty('.themes-btn', 'border', '0.25rem solid white')
     setProperty('.themes-btn', 'background-color', 'grey')
     if (state === 'change') {
