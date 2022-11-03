@@ -1,7 +1,15 @@
-const styleSheet = document.styleSheets[0]
 let cssRules = new Map()
-for (let i = 0; i < styleSheet.cssRules.length; i++) {
-    cssRules.set(styleSheet.cssRules[i].selectorText.split(' ').join(''), styleSheet.cssRules[i])
+for (let i = 0; i < document.styleSheets[0].cssRules.length; i++) {
+    cssRules.set(
+        document.styleSheets[0].cssRules[i].selectorText.split(' ').join(''),
+        document.styleSheets[0].cssRules[i]
+    )
+}
+for (let i = 0; i < document.styleSheets[1].cssRules.length; i++) {
+    cssRules.set(
+        document.styleSheets[1].cssRules[i].selectorText.split(' ').join(''),
+        document.styleSheets[1].cssRules[i]
+    )
 }
 let themesBtnState = localStorage.getItem('themesBtnState')
 const userAgent = navigator.userAgent.toLowerCase()
@@ -22,7 +30,7 @@ async function setProperty(cssRule, property, value) {
             resolve([cssRule, property, value])
         }
         else {
-            reject('Error No such rule existed!')
+            reject('Error!! No such rule existed!')
         }
     }).then(function (resolve) {
         cssRules.get(resolve[0]).style.setProperty(resolve[1], resolve[2])
@@ -40,13 +48,20 @@ function setPropertySync(cssRule, property, value) {
     }
 }
 
-async function lightTheme(state) {
+async function setAttribute(HTMLElement, attribute, value) {
+    HTMLElement.setAttribute(attribute, value)
+}
+
+async function lightTheme(state, mobileAgent) {
     themesBtnState = 'left'
     localStorage.setItem('themesBtnState', 'left')
     setProperty('.themes-btn-slide', 'transform', 'none')
     setProperty('.themes-btn-slide', 'background-image', 'url("../../public/assets/icons/Sun-logo.png")')
     setProperty('.themes-btn', 'border', '0.25rem solid rgb(50, 50, 50)')
     setProperty('.themes-btn', 'background-color', 'white')
+    setProperty('main', 'background-color', 'rgb(189, 189, 189)')
+    setAttribute(document.querySelector('#tree-scene'), 'src', '../../../public/assets/images/Tree img light.png')
+    setProperty('footer', 'background-color', 'rgb(189, 189, 189)')
     if (state === 'change') {
         setProperty('.themes-btn-slide', 'transition', 'transform 0.25s ease-in-out').then(function () {
             setTimeout(function () {
@@ -55,7 +70,7 @@ async function lightTheme(state) {
         })
     }
     if (mobileAgent) {
-        setProperty('.mobile-header', 'background-color', 'rgb(0, 128, 255)')
+        setProperty('.mobile-header', 'background-color', 'rgb(189, 189, 189)')
         setProperty('.navi-menu-btn', 'background-color', 'rgb(50, 50, 50)')
         setProperty('.navi-menu-btn', 'border', '0.25rem solid rgb(50, 50, 50)')
         setProperty(`[class="navi-menu-btn"]>div`, 'background-color', 'white')
@@ -75,7 +90,7 @@ async function lightTheme(state) {
         }
     }
     else {
-        setProperty('.desktop-header', 'background-color', 'rgb(0, 128, 255)')
+        setProperty('.desktop-header', 'background-color', 'rgb(189, 189, 189)')
         if (state === 'change') {
             setProperty('.desktop-header', 'transition', 'background-color 0.5s ease-in-out').then(function () {
                 setTimeout(function () {
@@ -86,13 +101,16 @@ async function lightTheme(state) {
     }
 }
 
-async function darkTheme(state) {
+async function darkTheme(state, mobileAgent) {
     themesBtnState = 'right'
     localStorage.setItem('themesBtnState', 'right')
     setProperty('.themes-btn-slide', 'transform', 'translateX(2.05rem)')
     setProperty('.themes-btn-slide', 'background-image', 'url("../../public/assets/icons/Moon-logo.png")')
     setProperty('.themes-btn', 'border', '0.25rem solid white')
     setProperty('.themes-btn', 'background-color', 'grey')
+    setProperty('main', 'background-color', 'rgb(55, 55, 55)')
+    setAttribute(document.querySelector('#tree-scene'), 'src', '../../../public/assets/images/Tree img dark.png')
+    setProperty('footer', 'background-color', 'rgb(55, 55, 55)')
     if (state === 'change') {
         setProperty('.themes-btn-slide', 'transition', 'transform 0.25s ease-in-out').then(function () {
             setTimeout(function () {
@@ -101,7 +119,7 @@ async function darkTheme(state) {
         })
     }
     if (mobileAgent) {
-        setProperty('.mobile-header', 'background-color', 'rgb(0, 0, 50)')
+        setProperty('.mobile-header', 'background-color', 'rgb(55, 55, 55)')
         setProperty('.navi-menu-btn', 'background-color', 'white')
         setProperty('.navi-menu-btn', 'border', '0.25rem solid white')
         setProperty(`[class="navi-menu-btn"]>div`, 'background-color', 'rgb(50, 50, 50)')
@@ -121,7 +139,7 @@ async function darkTheme(state) {
         }
     }
     else {
-        setProperty('.desktop-header', 'background-color', 'rgb(0, 0, 50)')
+        setProperty('.desktop-header', 'background-color', 'rgb(55, 55, 55)')
         if (state === 'change') {
             setProperty('.desktop-header', 'transition', 'background-color 0.5s ease-in-out').then(function () {
                 setTimeout(function () {
@@ -132,21 +150,7 @@ async function darkTheme(state) {
     }
 }
 
-if (themesBtnState === null) {
-    lightTheme()
-}
-else {
-    if (themesBtnState === 'right') {
-        darkTheme()
-    }
-    else {
-        lightTheme()
-    }
-}
-
-let naviMenuState = 'hidden'
-
-async function showHideNaviMenu() {
+async function showHideNaviMenu(naviMenuState) {
     if (naviMenuState === 'hidden') {
         naviMenuState = 'visible'
         setProperty('.navi-menu-content', 'transform', 'none')
@@ -162,17 +166,30 @@ async function showHideNaviMenu() {
     })
 }
 
+if (themesBtnState === null) {
+    lightTheme(null, mobileAgent)
+}
+else {
+    if (themesBtnState === 'right') {
+        darkTheme(null, mobileAgent)
+    }
+    else {
+        lightTheme(null, mobileAgent)
+    }
+}
+let naviMenuState = 'hidden'
+
 document.querySelector('body').addEventListener('click', function (e) {
     if (e.target.getAttribute('class') === 'themes-btn' || e.target.parentElement.getAttribute('class') === 'themes-btn') {
         if (themesBtnState === 'left') {
-            darkTheme('change')
+            darkTheme('change', mobileAgent)
         }
         else {
-            lightTheme('change')
+            lightTheme('change', mobileAgent)
         }
     }
     else if (e.target.getAttribute('class') === 'navi-menu-btn' || e.target.parentElement.getAttribute('class') === 'navi-menu-btn') {
-        showHideNaviMenu()
+        showHideNaviMenu(naviMenuState)
     }
     else {
         if (mobileAgent && naviMenuState === 'visible') {
@@ -180,7 +197,7 @@ document.querySelector('body').addEventListener('click', function (e) {
             const elp = e.target.parentElement.getAttribute('class')
             const elg = e.target.parentElement.parentElement.getAttribute('class')
             if (el != 'navi-menu-content' && elp != 'navi-menu-content' && elg != 'navi-menu-content') {
-                showHideNaviMenu()
+                showHideNaviMenu(naviMenuState)
             }
         }
     }

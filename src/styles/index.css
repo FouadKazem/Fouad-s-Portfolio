@@ -1,0 +1,69 @@
+html {
+    height: 100%;
+}
+
+body {
+    margin: auto;
+    min-height: 100%;
+    font-family: sans-serif;
+    display: grid;
+    grid-template: auto 90% auto / auto;
+}
+
+/*          Main Start          */
+
+main {
+    background-color: rgb(189, 189, 189);
+    padding: 1rem;
+    display: grid;
+    grid-template: auto / auto auto;
+    justify-content: space-around;
+    align-content: center;
+}
+
+#intro {
+    margin: auto;
+    width: max-content;
+    text-align: center;
+    font-family: monospace;
+}
+
+[id="intro"]>h1 {
+    margin: auto;
+    padding: 0;
+    display: grid;
+    grid-template: auto auto auto / auto;
+}
+
+#tree-scene {
+    margin: auto 0 auto auto;
+    padding: 0;
+    width: 75%;
+}
+
+/*          Main End            */
+
+/*          Footer Start            */
+
+footer {
+    background-color: rgb(189, 189, 189);
+    padding: 1rem;
+}
+
+address {
+    display: grid;
+    grid-template: auto / auto auto auto auto;
+    justify-content: center;
+    align-content: center;
+    column-gap: 2rem;
+}
+
+address>a, address>a>svg {
+    padding: 0;
+    margin: 0;
+    height: 2.5rem;
+    width: max-content;
+    box-sizing: border-box;
+}
+
+/*          Footer End          */
