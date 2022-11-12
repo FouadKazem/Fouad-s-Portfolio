@@ -1,15 +1,11 @@
 let cssRules = new Map()
 for (let i = 0; i < document.styleSheets[0].cssRules.length; i++) {
-    cssRules.set(
-        document.styleSheets[0].cssRules[i].selectorText.split(' ').join(''),
-        document.styleSheets[0].cssRules[i]
-    )
+    cssRules.set(document.styleSheets[0].cssRules[i].selectorText.split(' ').join(''),
+        document.styleSheets[0].cssRules[i])
 }
 for (let i = 0; i < document.styleSheets[1].cssRules.length; i++) {
-    cssRules.set(
-        document.styleSheets[1].cssRules[i].selectorText.split(' ').join(''),
-        document.styleSheets[1].cssRules[i]
-    )
+    cssRules.set(document.styleSheets[1].cssRules[i].selectorText.split(' ').join(''),
+        document.styleSheets[1].cssRules[i])
 }
 let themesBtnState = localStorage.getItem('themesBtnState')
 const userAgent = navigator.userAgent.toLowerCase()
@@ -23,6 +19,7 @@ if (mobileAgent) {
 else {
     setProperty('.mobile-header', 'display', 'none')
 }
+let naviMenuState = 'hidden'
 
 async function setProperty(cssRule, property, value) {
     return new Promise(function (resolve, reject) {
@@ -56,11 +53,11 @@ async function lightTheme(state, mobileAgent) {
     themesBtnState = 'left'
     localStorage.setItem('themesBtnState', 'left')
     setProperty('.themes-btn-slide', 'transform', 'none')
-    setProperty('.themes-btn-slide', 'background-image', 'url("../../public/assets/icons/Sun-logo.png")')
+    setProperty('.themes-btn-slide', 'background-image', 'url("../imgs/Sun-logo.png")')
     setProperty('.themes-btn', 'border', '0.25rem solid rgb(50, 50, 50)')
     setProperty('.themes-btn', 'background-color', 'white')
     setProperty('main', 'background-color', 'rgb(189, 189, 189)')
-    setAttribute(document.querySelector('#tree-scene'), 'src', '../../../public/assets/images/Tree img light.png')
+    setAttribute(document.querySelector('#tree-scene'), 'src', 'imgs/Tree img light.png')
     setProperty('footer', 'background-color', 'rgb(189, 189, 189)')
     if (state === 'change') {
         setProperty('.themes-btn-slide', 'transition', 'transform 0.25s ease-in-out').then(function () {
@@ -105,11 +102,11 @@ async function darkTheme(state, mobileAgent) {
     themesBtnState = 'right'
     localStorage.setItem('themesBtnState', 'right')
     setProperty('.themes-btn-slide', 'transform', 'translateX(2.05rem)')
-    setProperty('.themes-btn-slide', 'background-image', 'url("../../public/assets/icons/Moon-logo.png")')
+    setProperty('.themes-btn-slide', 'background-image', 'url("../imgs/Moon-logo.png")')
     setProperty('.themes-btn', 'border', '0.25rem solid white')
     setProperty('.themes-btn', 'background-color', 'grey')
     setProperty('main', 'background-color', 'rgb(55, 55, 55)')
-    setAttribute(document.querySelector('#tree-scene'), 'src', '../../../public/assets/images/Tree img dark.png')
+    setAttribute(document.querySelector('#tree-scene'), 'src', 'imgs/Tree img dark.png')
     setProperty('footer', 'background-color', 'rgb(55, 55, 55)')
     if (state === 'change') {
         setProperty('.themes-btn-slide', 'transition', 'transform 0.25s ease-in-out').then(function () {
@@ -150,7 +147,7 @@ async function darkTheme(state, mobileAgent) {
     }
 }
 
-async function showHideNaviMenu(naviMenuState) {
+async function showHideNaviMenu() {
     if (naviMenuState === 'hidden') {
         naviMenuState = 'visible'
         setProperty('.navi-menu-content', 'transform', 'none')
@@ -166,18 +163,12 @@ async function showHideNaviMenu(naviMenuState) {
     })
 }
 
-if (themesBtnState === null) {
+if (themesBtnState === null || themesBtnState === 'left') {
     lightTheme(null, mobileAgent)
 }
 else {
-    if (themesBtnState === 'right') {
-        darkTheme(null, mobileAgent)
-    }
-    else {
-        lightTheme(null, mobileAgent)
-    }
+    darkTheme(null, mobileAgent)
 }
-let naviMenuState = 'hidden'
 
 document.querySelector('body').addEventListener('click', function (e) {
     if (e.target.getAttribute('class') === 'themes-btn' || e.target.parentElement.getAttribute('class') === 'themes-btn') {
@@ -189,7 +180,7 @@ document.querySelector('body').addEventListener('click', function (e) {
         }
     }
     else if (e.target.getAttribute('class') === 'navi-menu-btn' || e.target.parentElement.getAttribute('class') === 'navi-menu-btn') {
-        showHideNaviMenu(naviMenuState)
+        showHideNaviMenu()
     }
     else {
         if (mobileAgent && naviMenuState === 'visible') {
@@ -197,7 +188,7 @@ document.querySelector('body').addEventListener('click', function (e) {
             const elp = e.target.parentElement.getAttribute('class')
             const elg = e.target.parentElement.parentElement.getAttribute('class')
             if (el != 'navi-menu-content' && elp != 'navi-menu-content' && elg != 'navi-menu-content') {
-                showHideNaviMenu(naviMenuState)
+                showHideNaviMenu()
             }
         }
     }
