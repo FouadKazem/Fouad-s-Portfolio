@@ -86,7 +86,7 @@ div[class="website-title"] {
 }
 
 .themes-btn-slide {
-    background-image: url("../../public/assets/icons/Sun-logo.png");
+    background-image: url("../imgs/Sun-logo.png");
     background-color: rgb(50, 50, 50);
     background-size: cover;
     width: 1.35rem;
