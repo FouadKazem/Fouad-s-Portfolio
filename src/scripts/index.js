@@ -1,11 +1,13 @@
+import '../styles/index.css'
+import '../imgs/Moon-logo.png'
+import '../imgs/Sun-logo.png'
+import '../imgs/Tree img dark.png'
+import '../imgs/Tree img light.png'
+
 let cssRules = new Map()
 for (let i = 0; i < document.styleSheets[0].cssRules.length; i++) {
     cssRules.set(document.styleSheets[0].cssRules[i].selectorText.split(' ').join(''),
         document.styleSheets[0].cssRules[i])
-}
-for (let i = 0; i < document.styleSheets[1].cssRules.length; i++) {
-    cssRules.set(document.styleSheets[1].cssRules[i].selectorText.split(' ').join(''),
-        document.styleSheets[1].cssRules[i])
 }
 let themesBtnState = localStorage.getItem('themesBtnState')
 const userAgent = navigator.userAgent.toLowerCase()
