@@ -5,13 +5,13 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const name = ['index', 'about-me', 'projects']
 module.exports = []
 
-for(let i = 2; i >= 0; i--) {
+for(let i = 0; i < name.length; i++) {
     module.exports.push({
         mode: 'production',
         entry: `./src/scripts/${name[i]}.js`,
         output: {
-            filename: `${name[i]}.[contenthash].js`,
-            path: path.resolve(__dirname, 'dist', 'scripts'),
+            filename: `scripts/${name[i]}.[contenthash].js`,
+            path: path.resolve(__dirname, 'dist'),
         },
         module: {
             rules: [
@@ -26,7 +26,7 @@ for(let i = 2; i >= 0; i--) {
                     test: /\.(svg|png|jpe?g|gif)$/i,
                     loader: 'file-loader',
                     options: {
-                        outputPath: '../imgs',
+                        outputPath: 'imgs',
                         name: '[name].[ext]'
                     },
                 },
@@ -35,11 +35,11 @@ for(let i = 2; i >= 0; i--) {
         plugins: [
             new HtmlWebpackPlugin({
                 template: path.resolve(__dirname, 'src') + `/${name[i]}.html`,
-                filename: `../${name[i]}.[contenthash].html`,
+                filename: `${name[i]}.html`,
                 scriptLoading: 'blocking',
             }),
             new MiniCssExtractPlugin({
-                filename: `../styles/${name[i]}.[contenthash].css`,
+                filename: `styles/${name[i]}.[contenthash].css`,
             }),
         ],
     })
