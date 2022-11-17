@@ -10,7 +10,7 @@ for(let i = 0; i < name.length; i++) {
         mode: 'production',
         entry: `./src/scripts/${name[i]}.js`,
         output: {
-            filename: `scripts/${name[i]}.[contenthash].js`,
+            filename: `${name[i]}.[contenthash].js`,
             path: path.resolve(__dirname, 'dist'),
         },
         module: {
@@ -27,7 +27,7 @@ for(let i = 0; i < name.length; i++) {
                     loader: 'file-loader',
                     options: {
                         outputPath: 'imgs',
-                        name: '[name].[ext]'
+                        name: '[name].[contenthash].[ext]'
                     },
                 },
             ],
@@ -39,7 +39,7 @@ for(let i = 0; i < name.length; i++) {
                 scriptLoading: 'blocking',
             }),
             new MiniCssExtractPlugin({
-                filename: `styles/${name[i]}.[contenthash].css`,
+                filename: `${name[i]}.[contenthash].css`,
             }),
         ],
     })

@@ -11,7 +11,7 @@ for(let i = 0; i < name.length; i++) {
         mode: 'development',
         entry: `./src/scripts/${name[i]}.js`,
         output: {
-            filename: `scripts/${name[i]}.js`,
+            filename: `${name[i]}.js`,
             path: path.resolve(__dirname, 'dist'),
         },
         module: {
@@ -40,7 +40,7 @@ for(let i = 0; i < name.length; i++) {
                 scriptLoading: 'blocking',
             }),
             new MiniCssExtractPlugin({
-                filename: `styles/${name[i]}.css`,
+                filename: `${name[i]}.css`,
             }),
         ],
     })
