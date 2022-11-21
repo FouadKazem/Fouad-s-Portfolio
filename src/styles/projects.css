@@ -1,0 +1,77 @@
+@import "navigation-bar.css";
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: auto;
+    min-height: 100%;
+    font-family: sans-serif;
+    display: grid;
+    grid-template: auto auto auto / auto;
+}
+
+/*          Main Start          */
+
+main {
+    padding: 4rem 1rem 1rem 1rem;
+    min-height: 1000px;
+    color: white;
+    background-color: rgb(75, 0, 0); /*USE FOR DEBUGGING*/
+}
+
+/*          Main End            */
+
+/*          Footer Start            */
+
+footer {
+    background-color: red; /*USE FOR DEBUGGING*/
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}
+
+address {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1rem;
+    row-gap: 1rem;
+    justify-content: center;
+}
+
+div[class="address-container"] {
+    display: grid;
+    grid-template: auto auto / auto;
+    row-gap: 1rem;
+}
+
+div[class="address-container"]>a {
+    background-color: white;
+    padding: 1rem;
+    width: 15rem;
+    height: 2rem;
+    display: grid;
+    grid-template: auto / auto auto;
+    align-content: center;
+    text-decoration: none;
+}
+
+div[class="address-container"]>a>svg {
+    margin: 0;
+    padding: 0;
+    width: auto;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+div[class="address-container"]>a>span {
+    color: black;
+    font-weight: bold;
+    margin: auto;
+    padding: 0;
+    width: auto;
+    box-sizing: border-box;
+}
+
+/*          Footer End          */
