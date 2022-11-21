@@ -9,17 +9,17 @@ body {
     min-height: 100%;
     font-family: sans-serif;
     display: grid;
-    grid-template: auto 90% auto / auto;
+    grid-template: auto auto auto / auto;
+    align-content: space-between;
 }
 
 /*          Main Start          */
 
 main {
-    background-color: rgb(189, 189, 189);
     padding: 1rem;
-    display: grid;
-    grid-template: auto / auto auto;
-    justify-content: space-around;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     align-content: center;
 }
 
@@ -38,9 +38,9 @@ main {
 }
 
 #tree-scene {
-    margin: auto 0 auto auto;
+    margin: auto;
     padding: 0;
-    width: 75%;
+    width: 37rem;
 }
 
 /*          Main End            */
@@ -48,7 +48,6 @@ main {
 /*          Footer Start            */
 
 footer {
-    background-color: rgb(189, 189, 189);
     padding: 1rem;
 }
 

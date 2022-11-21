@@ -16,9 +16,12 @@ export class Page {
         }
         if (this.mobileAgent) {
             this.setProperty('.desktop-header', 'display', 'none')
+            this.setProperty('main', 'margin-top', `${document.querySelector('.mobile-header').clientHeight}px`)
+            this.setProperty('.navi-menu-content', 'margin-top', `${document.querySelector('.mobile-header').clientHeight}px`)
         }
         else {
             this.setProperty('.mobile-header', 'display', 'none')
+            this.setProperty('main', 'margin-top', `${document.querySelector('.desktop-header').clientHeight}px`)
         }
     }
 
@@ -40,7 +43,7 @@ export class Page {
         }
     }
 
-    async changeTheme(array) {
+    async applyTheme(array) {
         for (let i = 0; i < array.length; i++) {
             let type = typeof array[i][0]
             if (type === 'string') {

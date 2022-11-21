@@ -2,76 +2,80 @@ import '../styles/index.css'
 import * as imgs from './modules/imgs'
 import { Page } from './modules/page'
 
-const page = new Page(document.styleSheets[0])
+const page = new Page(document.styleSheets[document.styleSheets.length - 1])
+const common = [
+    ['.desktop-header', 'background-color', 'rgba(0, 0, 0, 0)'],
+    ['.mobile-header', 'background-color', 'rgba(0, 0, 0, 0)'],
+    ['main', 'background-color', 'rgba(0, 0, 0, 0)'],
+    ['footer', 'background-color', 'rgba(0, 0, 0, 0)'],
+]
 const commonLight = [
-    ['.themes-btn-slide', 'transform', 'none'],
-    ['.themes-btn-slide', 'background-image', `url(${imgs.sunLogo})`],
+    ['body', 'background-color', 'rgb(53, 236, 252)'],
+    ['.website-title', 'color', 'rgb(55, 55, 55)'],
     ['.themes-btn', 'border', '0.25rem solid rgb(55, 55, 55)'],
     ['.themes-btn', 'background-color', 'white'],
-    ['main', 'background-color', 'rgb(189, 189, 189)'],
+    ['.themes-btn-slide', 'transform', 'none'],
+    ['.themes-btn-slide', 'background-image', `url(${imgs.sunLogo})`],
+    ['#intro', 'color', 'rgb(55, 55, 55)'],
     [document.querySelector('#tree-scene'), 'src', imgs.treeImgLight],
-    ['footer', 'background-color', 'rgb(189, 189, 189)'],
 ]
 const commonDark = [
-    ['.themes-btn-slide', 'transform', 'translateX(2.05rem)'],
-    ['.themes-btn-slide', 'background-image', `url(${imgs.moonLogo})`],
+    ['body', 'background-color', 'rgb(0, 6, 43)'],
+    ['.website-title', 'color', 'white'],
     ['.themes-btn', 'border', '0.25rem solid white'],
     ['.themes-btn', 'background-color', 'grey'],
-    ['main', 'background-color', 'rgb(55, 55, 55)'],
+    ['.themes-btn-slide', 'transform', 'translateX(2.05rem)'],
+    ['.themes-btn-slide', 'background-image', `url(${imgs.moonLogo})`],
+    ['#intro', 'color', 'white'],
     [document.querySelector('#tree-scene'), 'src', imgs.treeImgDark],
-    ['footer', 'background-color', 'rgb(55, 55, 55)'],
 ]
 const desktopLight = [
-    ['.desktop-header', 'background-color', 'rgb(189, 189, 189)'],
+    [`[class="navi-bar-content"]>button>a`, 'color', 'rgb(55, 55, 55)']
 ]
 const desktopDark = [
-    ['.desktop-header', 'background-color', 'rgb(55, 55, 55)'],
+    [`[class="navi-bar-content"]>button>a`, 'color', 'white']
 ]
 const mobileLight = [
-    ['.mobile-header', 'background-color', 'rgb(189, 189, 189)'],
-    ['.navi-menu-btn', 'background-color', 'rgb(55, 55, 55)'],
     ['.navi-menu-btn', 'border', '0.25rem solid rgb(55, 55, 55)'],
+    ['.navi-menu-btn', 'background-color', 'rgb(55, 55, 55)'],
     [`[class="navi-menu-btn"]>div`, 'background-color', 'white'],
     ['.navi-menu-content', 'background-color', 'white'],
-    ['.navi-menu-content', 'border-left', '0.25rem solid white'],
-    ['.navi-menu-content', 'border-right', '0.25rem solid white'],
-    [`[class="navi-menu-content"]>button`, 'background-color', 'white'],
-    [`[class="navi-menu-content"]>button`, 'border-bottom', '0.15rem solid rgb(55, 55, 55)'],
-    [`[class="navi-menu-content"]>button:first-child`, 'border-top', '0.15rem solid white'],
+    [`[class="navi-menu-content"]>button`, 'background-color', 'rgba(0, 0, 0, 0)'],
     [`[class="navi-menu-content"]>button>a`, 'color', 'rgb(55, 55, 55)'],
 ]
 const mobileDark = [
-    ['.mobile-header', 'background-color', 'rgb(55, 55, 55)'],
-    ['.navi-menu-btn', 'background-color', 'white'],
     ['.navi-menu-btn', 'border', '0.25rem solid white'],
+    ['.navi-menu-btn', 'background-color', 'white'],
     [`[class="navi-menu-btn"]>div`, 'background-color', 'rgb(55, 55, 55)'],
-    ['.navi-menu-content', 'background-color', 'rgb(55, 55, 55)'],
-    ['.navi-menu-content', 'border-left', '0.25rem solid rgb(55, 55, 55)'],
-    ['.navi-menu-content', 'border-right', '0.25rem solid rgb(55, 55, 55)'],
-    [`[class="navi-menu-content"]>button`, 'background-color', 'rgb(55, 55, 55)'],
-    [`[class="navi-menu-content"]>button`, 'border-bottom', '0.15rem solid white'],
-    [`[class="navi-menu-content"]>button:first-child`, 'border-top', '0.15rem solid rgb(55, 55, 55)'],
+    ['.navi-menu-content', 'background-color', 'rgb(0, 0, 60)'],
+    [`[class="navi-menu-content"]>button`, 'background-color', 'rgba(0, 0, 0, 0)'],
     [`[class="navi-menu-content"]>button>a`, 'color', 'white'],
 ]
-
+page.applyTheme(common)
 if (page.themesBtnState === null || page.themesBtnState === 'left') {
     page.themesBtnState = 'left'
     localStorage.setItem('themesBtnState', 'left')
-    page.changeTheme(commonLight)
+    page.applyTheme(commonLight)
     if (page.mobileAgent) {
-        page.changeTheme(mobileLight)
+        page.applyTheme(mobileLight)
     }
     else {
-        page.changeTheme(desktopLight)
+        page.applyTheme(desktopLight)
+    }
+    for (let i = 0; i < document.querySelectorAll('address>a').length; i++) {
+        page.setAttribute(document.querySelectorAll('address>a')[i].children[0], 'stroke', '#373737')
     }
 }
 else {
-    page.changeTheme(commonDark)
+    page.applyTheme(commonDark)
     if (page.mobileAgent) {
-        page.changeTheme(mobileDark)
+        page.applyTheme(mobileDark)
     }
     else {
-        page.changeTheme(desktopDark)
+        page.applyTheme(desktopDark)
+    }
+    for (let i = 0; i < document.querySelectorAll('address>a').length; i++) {
+        page.setAttribute(document.querySelectorAll('address>a')[i].children[0], 'stroke', '#FFFFFF')
     }
 }
 
@@ -81,23 +85,29 @@ document.body.addEventListener('click', function (e) {
         if (page.themesBtnState === 'left') {
             page.themesBtnState = 'right'
             localStorage.setItem('themesBtnState', 'right')
-            page.changeTheme(commonDark)
+            page.applyTheme(commonDark)
             if (page.mobileAgent) {
-                page.changeTheme(mobileDark)
+                page.applyTheme(mobileDark)
             }
             else {
-                page.changeTheme(desktopDark)
+                page.applyTheme(desktopDark)
+            }
+            for (let i = 0; i < document.querySelectorAll('address>a').length; i++) {
+                page.setAttribute(document.querySelectorAll('address>a')[i].children[0], 'stroke', '#FFFFFF')
             }
         }
         else {
             page.themesBtnState = 'left'
             localStorage.setItem('themesBtnState', 'left')
-            page.changeTheme(commonLight)
+            page.applyTheme(commonLight)
             if (page.mobileAgent) {
-                page.changeTheme(mobileLight)
+                page.applyTheme(mobileLight)
             }
             else {
-                page.changeTheme(desktopLight)
+                page.applyTheme(desktopLight)
+            }
+            for (let i = 0; i < document.querySelectorAll('address>a').length; i++) {
+                page.setAttribute(document.querySelectorAll('address>a')[i].children[0], 'stroke', '#373737')
             }
         }
     }

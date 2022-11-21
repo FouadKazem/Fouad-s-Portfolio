@@ -1,14 +1,12 @@
 /*          Desktop Header Start            */
 
 .desktop-header {
-    /*background-color: red;*/ /*USE FOR DEBUGGING*/
-    background-color: rgb(189, 189, 189);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     padding: 1rem;
-    height: 1rem;
+    height: max-content;
     display: grid;
     grid-template: auto / auto auto;
     align-content: center;
@@ -16,7 +14,6 @@
 }
 
 .navi-bar {
-    /*background-color: white;*/ /*USE FOR DEBUGGING*/
     display: grid;
     grid-template: auto / auto auto auto;
     align-content: center;
@@ -29,18 +26,11 @@
     cursor: default;
     margin: auto;
     padding: 0;
+    font-family: 'Audiowide', cursive;
     font-size: 1.25em;
-    color: white;
-}
-
-div[class="website-title"] {
-    width: 0.2rem;
-    height: 1.5rem;
-    background-color: white;
 }
 
 .navi-bar-content {
-    /*background-color: green;*/ /*USE FOR DEBUGGING*/
     margin: 0;
     padding: 0;
     border-radius: 2rem;
@@ -61,8 +51,8 @@ div[class="website-title"] {
 [class="navi-bar-content"]>button>a {
     margin: auto;
     padding: 0;
-    color: white;
     text-decoration: none;
+    font-family: 'Audiowide', cursive;
     font-weight: bold;
     font-size: 1.25em;
 }
@@ -74,10 +64,8 @@ div[class="website-title"] {
 /*          Desktop Header End          */
 
 .themes-btn {
-    background-color: white;
     width: 3.5rem;
     padding: 0;
-    border: 0.25rem solid rgb(50, 50, 50);
     border-radius: 4rem;
     display: grid;
     grid-template: auto / auto;
@@ -86,12 +74,12 @@ div[class="website-title"] {
 }
 
 .themes-btn-slide {
-    background-color: rgb(50, 50, 50);
+    background-color: rgb(55, 55, 55);
     background-size: cover;
     width: 1.35rem;
     height: 1.35rem;
     margin: 0.05rem;
-    border: 0.05rem solid rgb(50, 50, 50);
+    border: 0.05rem solid rgb(55, 55, 55);
     border-radius: 100%;
     box-sizing: border-box;
     cursor: pointer;
@@ -100,13 +88,12 @@ div[class="website-title"] {
 /*          Mobile Header Start         */
 
 .mobile-header {
-    background-color: rgb(189, 189, 189);
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     padding: 1rem;
-    height: 1rem;
+    height: max-content;
     display: grid;
     grid-template: auto / auto auto auto;
     align-content: center;
@@ -114,12 +101,10 @@ div[class="website-title"] {
 }
 
 .navi-menu-btn {
-    background-color: rgb(50, 50, 50);
     width: 3rem;
     height: 2rem;
     box-sizing: border-box;
     padding: 0.2rem;
-    border: 0.25rem solid rgb(50, 50, 50);
     border-radius: 0.25rem;
     display: grid;
     grid-template: auto auto auto / auto;
@@ -127,7 +112,6 @@ div[class="website-title"] {
 }
 
 [class="navi-menu-btn"]>div {
-    background-color: white;
     border-radius: 0.05rem;
     margin: 0;
     width: 100%;
@@ -135,14 +119,10 @@ div[class="website-title"] {
 }
 
 .navi-menu-content {
-    background-color: white;
-    top: 2.5rem;
+    top: 0;
     bottom: 0;
     left: 0;
     right: 50%;
-    margin-top: 0.5rem;
-    border-left: 0.25rem solid white;
-    border-right: 0.25rem solid white;
     display: grid;
     grid-template: auto auto auto / auto;
     align-content: flex-start;
@@ -152,22 +132,21 @@ div[class="website-title"] {
 }
 
 [class="navi-menu-content"]>button {
-    background-color: white;
     width: 100%;
-    margin: 0;
-    padding: 0.5rem 0 0.5rem 0.25rem;
+    margin-left: 0.15rem;
+    margin-bottom: 0.15rem;
     border: none;
-    border-bottom: 0.15rem solid rgb(50, 50, 50);
+    padding: 0.5rem 0 0.5rem 0.25rem;
     text-align: left;
 }
 
 [class="navi-menu-content"]>button:first-child {
-    border-top: 0.15rem solid white;
+    margin-top: 0.15rem;
 }
 
 [class="navi-menu-content"]>button>a {
-    color: rgb(50, 50, 50);
     text-decoration: none;
+    font-family: 'Audiowide', cursive;
     font-size: 1.5em;
     font-weight: bold;
 }
