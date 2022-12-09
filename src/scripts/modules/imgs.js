@@ -10,6 +10,7 @@ import img9 from '../../imgs/Mother Tree Dark.png'
 import img10 from '../../imgs/Tree 1 Dark.png'
 import img11 from '../../imgs/Tree 2 Dark.png'
 import img12 from '../../imgs/Tree 3 Dark.png'
+import img13 from '../../imgs/Fouad-s-Portfolio.png'
 
 export const moonLogo = img1
 export const sunLogo = img2
@@ -23,3 +24,4 @@ export const motherTreeDark = img9
 export const tree1Dark = img10
 export const tree2Dark = img11
 export const tree3Dark = img12
+export const fouadsPortfolio = img13
