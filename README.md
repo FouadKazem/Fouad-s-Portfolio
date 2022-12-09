@@ -30,8 +30,8 @@
 - The header and the footer are common in all pages.
 - The website supports two types of navigation menus. The first one is for desktop devices and the second one is for mobile and tablet devices.
     - The desktop navigation bar contains the website title and 3 buttons to move from page to another.
-    - The mobile navigation bar contains the website title placed in the middle and a right button to show/hide the navigation bar which contains the buttons to move from page to another.
-    - Both desktop and mobile navigation bars have a left button to switch between light and dark themes.
+    - The mobile navigation bar contains the website title placed in the middle and a left button to show/hide the navigation bar which contains the buttons to move from page to another.
+    - Both desktop and mobile navigation bars have a right button to switch between light and dark themes.
 - The footer contains 4 clickable images, and every image leads to a different link to contact the author of the website.
 - The main section of every page represents the unique content of the page:
     - In HOME page, the main show a small presentation of the author's work.
