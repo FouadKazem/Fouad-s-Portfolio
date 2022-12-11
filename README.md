@@ -1,6 +1,6 @@
 # Fouad's Portfolio
 
-## Overeview Description:
+## Overview:
 - A personal portfolio website that was created by using `HTML`, `CSS`, `JavaScript` and rendered images of 3D scenes that was created using `Blender` software.
 ## Running The Project on Your Machine:
 1. You should have both Node.js 18 and NPM installed on your machine.
@@ -8,7 +8,7 @@
     ```
     npm install
     ```
-3. After npm finish installing the required node modules, you can now run the project ether in production mode or in development mode:
+3. After npm finish installing the required node modules, you can now run the project either in production mode or in development mode:
     - Run the following command to start the website in development mode:
         ```
         npm start
