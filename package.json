@@ -4,8 +4,8 @@
   "description": "## A portfolio website",
   "main": "index.js",
   "scripts": {
-    "start": "rm -r dist & webpack-dev-server --config webpack.dev.js",
-    "build": "rm -r dist & webpack --config webpack.prod.js && webpack-dev-server --config webpack.server.js"
+    "start": "webpack-dev-server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js && webpack-dev-server --config webpack.server.js"
   },
   "repository": {
     "type": "git",
