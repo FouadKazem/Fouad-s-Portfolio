@@ -12,6 +12,7 @@ for(let i = 0; i < name.length; i++) {
         output: {
             filename: `${name[i]}.[contenthash].js`,
             path: path.resolve(__dirname, 'dist'),
+            assetModuleFilename: 'assets/[hash][ext][query]',
         },
         module: {
             rules: [
@@ -24,11 +25,7 @@ for(let i = 0; i < name.length; i++) {
                 },
                 {
                     test: /\.(svg|png|jpe?g|gif)$/i,
-                    loader: 'file-loader',
-                    options: {
-                        outputPath: 'imgs',
-                        name: '[name].[contenthash].[ext]'
-                    },
+                    type: 'asset/resource',
                 },
             ],
         },

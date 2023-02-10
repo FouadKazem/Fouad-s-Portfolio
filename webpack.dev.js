@@ -6,13 +6,14 @@ const { devServer } = require('./webpack.server')
 const name = ['index', 'about-me', 'projects']
 module.exports = []
 
-for(let i = 0; i < name.length; i++) {
+for (let i = 0; i < name.length; i++) {
     module.exports.push({
         mode: 'development',
         entry: `./src/scripts/${name[i]}.js`,
         output: {
             filename: `${name[i]}.js`,
             path: path.resolve(__dirname, 'dist'),
+            assetModuleFilename: 'assets/[name][hash][ext][query]',
         },
         module: {
             rules: [
@@ -25,11 +26,7 @@ for(let i = 0; i < name.length; i++) {
                 },
                 {
                     test: /\.(svg|png|jpe?g|gif)$/i,
-                    loader: 'file-loader',
-                    options: {
-                        outputPath: 'imgs',
-                        name: '[name].[ext]'
-                    },
+                    type: 'asset/resource',
                 },
             ],
         },
