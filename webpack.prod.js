@@ -12,7 +12,7 @@ for(let i = 0; i < name.length; i++) {
         output: {
             filename: `${name[i]}.[contenthash].js`,
             path: path.resolve(__dirname, 'dist'),
-            assetModuleFilename: 'assets/[hash][ext][query]',
+            assetModuleFilename: 'assets/[name][hash][ext][query]',
         },
         module: {
             rules: [
